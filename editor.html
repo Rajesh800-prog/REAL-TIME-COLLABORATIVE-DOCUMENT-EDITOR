@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Document Editor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .editor-container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+    #editor {
+      width: 100%;
+      height: 400px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+      overflow-y: auto;
+    }
+    .buttons {
+      margin-top: 10px;
+      text-align: right;
+    }
+    button {
+      padding: 10px 15px;
+      margin-left: 5px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button.save { background: #4CAF50; color: white; }
+    button.clear { background: #f44336; color: white; }
+  </style>
+</head>
+<body>
+  <div class="editor-container">
+    <h2>Document Editor (Local Only)</h2>
+    <div id="editor" contenteditable="true" placeholder="Start typing..."></div>
+    <div class="buttons">
+      <button class="save" onclick="saveDoc()">Save</button>
+      <button class="clear" onclick="clearDoc()">Clear</button>
+    </div>
+  </div>
+
+  <script>
+    const editor = document.getElementById('editor');
+
+    // Load saved content
+    window.onload = () => {
+      const saved = localStorage.getItem('myDocument');
+      if (saved) editor.innerHTML = saved;
+    };
+
+    function saveDoc() {
+      localStorage.setItem('myDocument', editor.innerHTML);
+      alert('Document saved locally!');
+    }
+
+    function clearDoc() {
+      if (confirm('Clear the editor?')) {
+        editor.innerHTML = '';
+        localStorage.removeItem('myDocument');
+      }
+    }
+  </script>
+</body>
